@@ -7,6 +7,9 @@ import VideoDetails from './VideoDetails';
 class App extends React.Component{
 
     state ={videos : [],selectedVideo : null};
+    componentDidMount(){
+        this.onTermSubmit('cars');
+    }
     onTermSubmit= async term=>{
         console.log(term);
        const response=await youTube.get('/search',{
@@ -15,8 +18,11 @@ class App extends React.Component{
                 q : term
             }
         });
-        //console.log (response.data.items);
-        this.setState({videos :response.data.items});
+        console.log (response.data.items);
+        this.setState({videos :response.data.items,
+            selectedVideo:response.data.items[0]
+
+        });
     };
 
     onVideoSelected=video=>{
